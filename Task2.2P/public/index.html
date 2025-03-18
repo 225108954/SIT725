@@ -3,31 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Square Calculator</title>
+    <title>Calculator App</title>
 </head>
 <body>
-    <h1>Square Calculator</h1>
-    <input type="number" id="numberInput" placeholder="Enter a number">
-    <button onclick="calculateSquare()">Calculate Square</button>
+    <h1>Calculator</h1>
+    <input type="number" id="num1" placeholder="Enter first number">
+    <input type="number" id="num2" placeholder="Enter second number (optional)">
+    <select id="operation">
+        <option value="add">Addition</option>
+        <option value="subtract">Subtraction</option>
+        <option value="multiply">Multiplication</option>
+        <option value="divide">Division</option>
+        <option value="square">Square (First number only)</option>
+    </select>
+    <button onclick="calculate()">Calculate</button>
     <p id="result"></p>
 
     <script>
-        function calculateSquare() {
-            const number = document.getElementById('numberInput').value;
-            if (!number) {
-                document.getElementById('result').innerText = 'Please enter a number.';
+        function calculate() {
+            const num1 = document.getElementById('num1').value.trim();
+            const num2 = document.getElementById('num2').value.trim();
+            const operation = document.getElementById('operation').value;
+
+            if (num1 === '' || isNaN(num1) || (operation !== 'square' && (num2 === '' || isNaN(num2)))) {
+                document.getElementById('result').innerText = 'Please enter valid numbers.';
                 return;
             }
 
-            fetch(`http://localhost:3000/square/${number}`) // Update this URL if deployed
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Invalid number or server error');
-                    }
-                    return response.text();
-                })
+            const url = `http://localhost:3000/calculate?num1=${num1}&num2=${num2}&operation=${operation}`;
+
+            fetch(url)
+                .then(response => response.json())
                 .then(data => {
-                    document.getElementById('result').innerText = data;
+                    if (data.error) {
+                        document.getElementById('result').innerText = `Error: ${data.error}`;
+                    } else {
+                        document.getElementById('result').innerText = `Result: ${data.result}`;
+                    }
                 })
                 .catch(error => {
                     document.getElementById('result').innerText = 'Error: ' + error.message;

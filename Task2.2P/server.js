@@ -1,36 +1,59 @@
-const express = require('express')
-const cors = require('cors')
-const path = require('path')
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 
-// Configure CORS properly
 const corsOptions = {
-    origin: 'https://example.com', // Change this to the correct frontend domain
+    origin: '*', 
     methods: 'GET,PUT,POST,DELETE',
     allowedHeaders: 'Content-Type',
 };
 
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.static(path.join(__dirname, 'public')))
-
-// Serve the index file
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'))
-})
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+//api
+app.get('/calculate', (req, res) => {
+    const { num1, num2, operation } = req.query;
+    const number1 = parseFloat(num1);
+    const number2 = num2 ? parseFloat(num2) : null;
 
-// New route to calculate the square of a number
-app.get('/square/:number', (req, res) => {
-    const number = parseInt(req.params.number)
-    if (isNaN(number)) {
-        return res.status(400).send('Invalid number')
+    if (isNaN(number1) || (num2 && isNaN(number2))) {
+        return res.status(400).json({ error: 'Invalid number(s)' });
     }
-    const square = number * number
-    res.json({ number, square })
-})
+
+    let result;
+    switch (operation) {
+        case 'add':
+            result = number1 + number2;
+            break;
+        case 'subtract':
+            result = number1 - number2;
+            break;
+        case 'multiply':
+            result = number1 * number2;
+            break;
+        case 'divide':
+            if (number2 === 0) {
+                return res.status(400).json({ error: 'Cannot divide by zero' });
+            }
+            result = number1 / number2;
+            break;
+        case 'square':
+            result = number1 * number1;
+            break;
+        default:
+            return res.status(400).json({ error: 'Invalid operation' });
+    }
+
+    res.json({ num1: number1, num2: number2, operation, result });
+});
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+    console.log(`Calculator app running on http://localhost:${port}`);
+});
