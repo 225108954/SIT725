@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIT 725 Week 3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        .brand-logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .nav-wrapper {
+            padding: 0 20px;
+        }
+
+        body {
+            background-color: #f8e5c0;
+        }
+
+        .header-container {
+            background-color: #f4a261;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .header-container h1 {
+            font-weight: bold;
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="deep-orange darken-3">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo" style="display: flex; align-items: center;">
+                <img src="/images/profile-pic.png" alt="Profile">
+                SIT 725
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="header-container">
+        <h1>Welcome to SIT 725 Week 3</h1>
+        <p>This is a demo application that uses Materialize components for an interactive experience.</p>
+        <button data-target="modal1" class="btn modal-trigger">Click Me</button>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="/images/headphone.jpg" alt="Item 1" style="height: max-content;">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">Item 1</span>
+                        <p>Description of Item 1</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="/images/wireless.jpg" alt="Item 2" style="height: max-content;">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">Item 2</span>
+                        <p>Description of Item 2</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="/images/wired.png" alt="Item 3" style="height: max-content;">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">Item 3</span>
+                        <p>Description of Item 3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Register</h4>
+            <form>
+                <div class="input-field">
+                    <input id="first_name" type="text" class="validate">
+                    <label for="first_name">First Name</label>
+                </div>
+                <div class="input-field">
+                    <input id="last_name" type="text" class="validate">
+                    <label for="last_name">Last Name</label>
+                </div>
+                <div class="input-field">
+                    <input id="email" type="email" class="validate">
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-field">
+                    <input id="password" type="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modalElems = document.querySelectorAll('.modal');
+            M.Modal.init(modalElems);
+        });
+    </script>
+</body>
+
+</html>
