@@ -23,15 +23,6 @@ const productSchema = new mongoose.Schema({
 });
 const Product = mongoose.model('Product', productSchema);
 
-// User Schema
-const userSchema = new mongoose.Schema({
-    firstName: String,
-    lastName: String,
-    email: String,
-    password: String
-});
-const User = mongoose.model('User', userSchema);
-
 // Root route handler
 app.get('/', (req, res) => {
     res.send('Welcome to the SIT 725 Week 3 project!');
@@ -44,18 +35,6 @@ app.get('/products', async (req, res) => {
         res.json(products);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching products' });
-    }
-});
-
-// POST API to Store Form Data
-app.post('/register', async (req, res) => {
-    try {
-        const { firstName, lastName, email, password } = req.body;
-        const newUser = new User({ firstName, lastName, email, password });
-        await newUser.save();
-        res.json({ message: 'User registered successfully!' });
-    } catch (error) {
-        res.status(500).json({ error: 'Error saving user' });
     }
 });
 
