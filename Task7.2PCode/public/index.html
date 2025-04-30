@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Socket.IO Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        #number {
+            font-size: 5em;
+            color: #2e86de;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-Time Random Number</h1>
+    <div id="number">Waiting...</div>
+
+    <!-- Load Socket.IO from server -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        // Listen for the shared 'number' from server
+        socket.on('number', (data) => {
+            document.getElementById('number').innerText = data;
+        });
+    </script>
+</body>
+</html>
